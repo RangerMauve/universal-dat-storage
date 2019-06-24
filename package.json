@@ -1,0 +1,45 @@
+{
+  "name": "universal-dat-storage",
+  "version": "1.0.0",
+  "description": "Handle storing Dats in crazy environments",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RangerMauve/universal-dat-storage.git"
+  },
+  "keywords": [
+    "dat",
+    "storage",
+    "random",
+    "access",
+    "universal",
+    "web"
+  ],
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": "rangermauve",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RangerMauve/universal-dat-storage/issues"
+  },
+  "homepage": "https://github.com/RangerMauve/universal-dat-storage#readme",
+  "devDependencies": {
+    "dat-storage": "^1.1.1",
+    "hypercore": "^7.3.0",
+    "hypercore-crypto": "^1.0.0",
+    "hyperdrive": "^9.14.5",
+    "tape": "^4.10.2",
+    "tmp": "^0.1.0"
+  },
+  "dependencies": {
+    "dat-encoding": "^5.0.1",
+    "env-paths": "^2.2.0",
+    "random-access-file": "^2.1.3"
+  }
+}
