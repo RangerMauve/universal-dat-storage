@@ -57,7 +57,6 @@ test('getDrive - folder', (t) => {
   })
 })
 
-
 test('getDrive - key', (t) => {
   const { publicKey, secretKey } = crypto.keyPair()
 

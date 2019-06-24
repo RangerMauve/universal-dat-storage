@@ -19,6 +19,7 @@ This module hopes to unify all these environments and have one place for all of 
 - [ ] Check in Beaker's storage
   - Uses [app.getPath()](https://electronjs.org/docs/all#appgetpathname), with ["userData"](https://github.com/beakerbrowser/beaker/blob/bb80da5275ecfa1a2794913763ac1ba27ede6a54/app/background-process.js#L90), then ["Dat"](https://github.com/beakerbrowser/beaker-core/blob/5656854e3da75ba951a822f6c36147f31947b68e/dbs/archives.js#L26), and ["Archives" / "Meta" / `key.slice(0,2)` / `key.toString('hex')`](https://github.com/beakerbrowser/beaker-core/blob/5656854e3da75ba951a822f6c36147f31947b68e/dbs/archives.js#L37)
   - [ ] Create `.dat` file with a new key if nothing else exists
+- [ ] Web support
 
 ## API
 
