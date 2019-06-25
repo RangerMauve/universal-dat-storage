@@ -59,4 +59,7 @@ const drive = hyperdrive(storage.getDrive('./example'))
 
 // Get storage for a specific hypercore key
 const core = hypercore(storage.getCore(key))
+
+// Get storage for a given corestore
+const store = corestore(storage.getCoreStore(name))
 ```

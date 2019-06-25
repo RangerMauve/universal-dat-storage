@@ -49,6 +49,14 @@ class DatStorage {
     return this.getKeyStoreage(key)
   }
 
+  getCoreStore (name) {
+    const storageLocation = path.join(
+      this.storageLocation,
+      name
+    )
+    return (file) => raf(path.join(storageLocation, file))
+  }
+
   getKeyStoreage (location) {
     const key = DatEncoding.decode(location)
     const stringKey = DatEncoding.encode(key)
