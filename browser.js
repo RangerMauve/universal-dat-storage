@@ -20,7 +20,7 @@ class DatStorage {
       // It was probably not a dat key
     }
 
-    return (file) => this._storage(path.join('/', location, file))
+    return (file) => this._storage(path.join(location, file))
   }
 
   getCore (key) {

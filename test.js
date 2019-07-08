@@ -5,15 +5,13 @@ const hypercore = require('hypercore')
 
 const datStorage = require('./')
 
-const tmp = require('tmp')
-
-tmp.setGracefulCleanup()
-
-const storageLocation = tmp.dirSync({
+const isBrowser = process.title === 'browser'
+const storageLocation = isBrowser ? '/' : require('tmp').dirSync({
   prefix: 'universal-dat-storage-'
 }).name
 
 const storage = datStorage({
+  application: 'tests',
   storageLocation
 })
 
@@ -44,18 +42,21 @@ test('getCore', (t) => {
   })
 })
 
-test('getDrive - folder', (t) => {
-  const drive = hyperdrive(storage.getDrive('./example'), {
-    latest: true
-  })
+// Existing folders don't work on the web
+if(!isBrowser) {
+  test('getDrive - folder', (t) => {
+    const drive = hyperdrive(storage.getDrive('./example'), {
+      latest: true
+    })
 
-  drive.readFile('example.txt', 'utf-8', (err, data) => {
-    t.notOk(err, 'no error writing')
-    drive.close(() => {
-      t.end()
+    drive.readFile('example.txt', 'utf-8', (err, data) => {
+      t.notOk(err, 'no error writing')
+      drive.close(() => {
+        t.end()
+      })
     })
   })
-})
+}
 
 test('getDrive - key', (t) => {
   const { publicKey, secretKey } = crypto.keyPair()
@@ -64,13 +65,13 @@ test('getDrive - key', (t) => {
     secretKey
   })
 
-  drive.writeFile('example.txt', 'Hello World!', (err) => {
+  drive.writeFile('/example.txt', 'Hello World!', (err) => {
     t.notOk(err, 'able to write')
 
     drive.close(() => {
       const reloadedDrive = hyperdrive(storage.getDrive(publicKey))
 
-      reloadedDrive.readFile('example.txt', (err, data) => {
+      reloadedDrive.readFile('/example.txt', (err, data) => {
         t.notOk(err, 'able to read after loading')
         reloadedDrive.close(() => {
           t.end()
