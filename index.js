@@ -20,6 +20,24 @@ class DatStorage {
     this.useDatFile = useDatFile
   }
 
+  getLocation (location) {
+    const key = DatEncoding.decode(location)
+    const stringKey = DatEncoding.encode(key)
+
+    // Using same path as corestore
+    // https://github.com/andrewosh/random-access-corestore/blob/master/index.js#L80
+    return path.join(
+      this.storageLocation,
+      stringKey.slice(0, 2),
+      stringKey.slice(2, 4),
+      stringKey)
+  }
+
+  delete (key, cb) {
+    const location = this.getLocation(key)
+    fs.unlink(location, cb)
+  }
+
   getDrive (location) {
     try {
       return this.getKeyStoreage(location)
@@ -58,16 +76,7 @@ class DatStorage {
   }
 
   getKeyStoreage (location) {
-    const key = DatEncoding.decode(location)
-    const stringKey = DatEncoding.encode(key)
-
-    // Using same path as corestore
-    // https://github.com/andrewosh/random-access-corestore/blob/master/index.js#L80
-    const storageLocation = path.join(
-      this.storageLocation,
-      stringKey.slice(0, 2),
-      stringKey.slice(2, 4),
-      stringKey)
+    const storageLocation = this.getKeyLocation()
 
     return (file) => raf(path.join(storageLocation, file))
   }

@@ -43,7 +43,7 @@ test('getCore', (t) => {
 })
 
 // Existing folders don't work on the web
-if(!isBrowser) {
+if (!isBrowser) {
   test('getDrive - folder', (t) => {
     const drive = hyperdrive(storage.getDrive('./example'), {
       latest: true

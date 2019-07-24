@@ -13,6 +13,20 @@ class DatStorage {
     })
   }
 
+  getLocation (location) {
+    const key = DatEncoding.decode(location)
+    const stringKey = DatEncoding.encode(key)
+
+    return stringKey
+  }
+
+  delete (key, cb) {
+    // TODO: Figure out how to delete folders in the different web transports
+    setTimeout(() => {
+      cb(new Error('Cannot delete storage on Web yet'))
+    }, 0)
+  }
+
   getDrive (location) {
     try {
       return this.getKeyStoreage(location)
