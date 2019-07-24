@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const raf = require('random-access-file')
 const envPaths = require('env-paths')
 const DatEncoding = require('dat-encoding')
@@ -35,7 +35,7 @@ class DatStorage {
 
   delete (key, cb) {
     const location = this.getLocation(key)
-    fs.unlink(location, cb)
+    fs.remove(location, cb)
   }
 
   getDrive (location) {
