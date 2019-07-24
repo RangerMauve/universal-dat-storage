@@ -76,7 +76,7 @@ class DatStorage {
   }
 
   getKeyStoreage (location) {
-    const storageLocation = this.getLocation()
+    const storageLocation = this.getLocation(location)
 
     return (file) => raf(path.join(storageLocation, file))
   }
