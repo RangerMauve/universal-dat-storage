@@ -46,7 +46,7 @@ class DatStorage {
     }
 
     try {
-      const mainDatFolder = path.join(process.cwd(), location)
+      const mainDatFolder = path.resolve(process.cwd(), location)
       const relativeFolderLocation = path.join(mainDatFolder, '.dat')
       const stat = fs.statSync(relativeFolderLocation)
       if (this.useDatFolder && stat.isDirectory()) {
