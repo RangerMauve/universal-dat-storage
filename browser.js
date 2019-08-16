@@ -5,9 +5,10 @@ const RAW = require('random-access-web')
 class DatStorage {
   constructor ({
     application = 'dat',
-    maxSize
+    maxSize,
+    RAx = RAW
   }) {
-    this._storage = RAW({
+    this._storage = RAx({
       name: application,
       maxSize
     })
