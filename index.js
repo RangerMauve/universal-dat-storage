@@ -4,6 +4,7 @@ const envPaths = require('env-paths')
 const DatEncoding = require('dat-encoding')
 const datStorage = require('dat-storage')
 const path = require('path')
+const secretStorage = require('dat-secret-storage')
 
 class DatStorage {
   constructor ({
@@ -50,7 +51,14 @@ class DatStorage {
       const relativeFolderLocation = path.join(mainDatFolder, '.dat')
       const stat = fs.statSync(relativeFolderLocation)
       if (this.useDatFolder && stat.isDirectory()) {
-        return datStorage(mainDatFolder)
+        const contentDataLocation = path.join(relativeFolderLocation, 'content.data')
+        if (fs.existsSync(contentDataLocation)) {
+          // Save content feed to the folder
+          return datStoreStorage(relativeFolderLocation)
+        } else {
+          // Use files as files storage
+          return datStorage(mainDatFolder)
+        }
       } else if (this.useDatFile && stat.isFile()) {
         // Hopefully this is a `dat://` key
         const contents = fs.readFileSync(relativeFolderLocation)
@@ -85,3 +93,16 @@ class DatStorage {
 module.exports = (options) => new DatStorage(options)
 
 module.exports.DatStorage = DatStorage
+
+function datStoreStorage (storage) {
+  return {
+    metadata: function (name, opts) {
+      // I don't think we want this, we may get multiple 'ogd' sources
+      if (name === 'secret_key') return secretStorage()(path.join(storage, 'metadata.ogd'), { key: opts.key, discoveryKey: opts.discoveryKey })
+      return raf(path.join(storage, 'metadata.' + name))
+    },
+    content: function (name, opts) {
+      return raf(path.join(storage, 'content.' + name))
+    }
+  }
+}
