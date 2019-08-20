@@ -53,7 +53,7 @@ class DatStorage {
         return datStorage(mainDatFolder)
       } else if (this.useDatFile && stat.isFile()) {
         // Hopefully this is a `dat://` key
-        const contents = fs.readFileSync(relativeFolderLocation, 'utf-8')
+        const contents = fs.readFileSync(relativeFolderLocation)
         return this.getDrive(contents)
       }
     } catch (e) {
