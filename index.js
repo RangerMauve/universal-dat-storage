@@ -86,6 +86,12 @@ class DatStorage {
   getKeyStoreage (location) {
     const storageLocation = this.getLocation(location)
 
+    // If we have metadata stored locally, use names instead of folders
+    const metadataDataFile = path.join(storageLocation, 'metadata.data')
+    if(fs.existsSync(metadataDataFile)) {
+      return datStoreStorage(storageLocation)
+    }
+
     return (file) => raf(path.join(storageLocation, file))
   }
 }
